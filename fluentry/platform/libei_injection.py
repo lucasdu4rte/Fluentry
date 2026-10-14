@@ -273,7 +273,10 @@ class LibeiBackend:
         try:
             self._sender.dispatch()
             for event in self._sender.events:
-                if event.event_type is ei.EventType.DEVICE_PAUSED:
+                if (
+                    event.event_type is ei.EventType.DEVICE_PAUSED
+                    and event.device == self._device
+                ):
                     _log.info("device paused")
                     self._device = None
                 elif (
